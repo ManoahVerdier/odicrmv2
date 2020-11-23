@@ -1,0 +1,21 @@
+#field-values-edit-page {
+    .ui-sortable{
+        span.move{
+            left:3%;
+            top: calc(50% - 5px);
+        }
+
+        span.del{
+            right:-3em;
+            top: calc(50% - .75em);
+            cursor: pointer;
+            z-index:9;
+        }
+
+        span.edit{
+            right:-1.5em;
+            top: calc(50% - .75em);
+            cursor: pointer;
+        }
+    } 
+}

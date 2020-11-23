@@ -1,0 +1,32 @@
+
+<table id="clients-table" class="table table-bordered table-hover" class="display" style="width:100%">
+    <thead>
+        <th>Nom</th>
+        <th>adresse</th>
+        <th>Code Postal</th>
+        <th>Capital</th>
+        <th>CA</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#clients-table').DataTable({
+                "serverSide": true,
+                "ajax": {
+                    url: "/", 
+                    method: "get"
+                },
+                "columnDefs" : [{
+                    'targets': [4], 
+                    'orderable': false
+                }],
+            });
+        });
+        </script>

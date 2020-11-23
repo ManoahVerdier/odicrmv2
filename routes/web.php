@@ -13,6 +13,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::post(
+    '/clients/dataSource', 
+    [App\Http\Controllers\ClientController::class, 'clientsDataSourceAjax']
+)->name('clients.datasource');
+
+Route::post(
+    '/clients/massEdit', 
+    [App\Http\Controllers\ClientController::class, 'massEdit']
+)->name('clients.massEdit');
+
+Route::post(
+    '/clients/loadInput', 
+    [App\Http\Controllers\ClientController::class, 'loadInput']
+)->name('clients.loadInput');
+
+Route::resource('clients', App\Http\Controllers\ClientController::class);
+Route::resource('segments', App\Http\Controllers\SegmentController::class);
+Route::post(
+    '/fieldvalues/values/',
+    [App\Http\Controllers\FieldValueController::class, 'values']
+)->name("fieldvalue.values");
+Route::resource('fieldvalues', App\Http\Controllers\FieldValueController::class);

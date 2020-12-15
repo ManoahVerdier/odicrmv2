@@ -18,6 +18,22 @@ class SegmentController extends Controller
     }
 
     /**
+     * Display a listing of the resource of the selected type.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexType($type)
+    {
+        $selected='';
+        if(session($type.'_segment_selected') ?? false) {
+            $selected = session($type.'_segment_selected');
+        }
+        return json_encode(['selected' => $selected,
+            'list' =>Segment::where('type', $type)->get()->toArray()
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -47,6 +63,7 @@ class SegmentController extends Controller
      */
     public function show(Segment $segment)
     {
+        session([$segment->type.'_segment_selected' => $segment->id]);
         return json_encode($segment);
     }
 
@@ -82,7 +99,23 @@ class SegmentController extends Controller
      */
     public function destroy(Segment $segment)
     {
+        session()->forget($segment->type.'_segment_selected');
+        session()->flush();
         $segment->delete();
+        return json_encode(array("statusCode"=>200));
+    }
+
+    /**
+     * Remove segment from session
+     *
+     * @param \App\Models\Segment $segment le segment selectionné
+     * 
+     * @return void
+     */
+    public function forget(Segment $segment)
+    {
+        session()->forget($segment->type.'_segment_selected');
+        session()->flush();
         return json_encode(array("statusCode"=>200));
     }
 }

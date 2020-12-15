@@ -12,6 +12,7 @@ class ClientContract extends Model
 
     protected $table = 'clients_contracts';
     protected $exclude = ['id', 'client_id', 'updated_at', 'created_at', 'deleted_at'];
+    protected $guarded = ['id', 'client_id', 'updated_at', 'created_at', 'deleted_at'];
 
     /**
      * Lien vers le client associé

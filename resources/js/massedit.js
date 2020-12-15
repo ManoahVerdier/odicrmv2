@@ -31,7 +31,11 @@ export class MassEdit {
                 else {
                     field = "<select name='"+data.name+"' class='form-control col-12 offset-md-1 col-md-6 value'>";
                     for(let key in data.values) {
-                        field+="<option value='"+key+"'>"+data.values[key]+"</option>";
+                        if(data.values[key].label!="" && data.values[key].label!=undefined){
+                            field+="<option value='"+key+"'>"+data.values[key].label+"</option>";
+                        } else {
+                            field+="<option value='"+key+"'>"+data.values[key]+"</option>";
+                        }
                     }
                     field+="</select>";
                 }

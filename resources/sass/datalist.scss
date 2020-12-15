@@ -1,54 +1,83 @@
-table.datalist.dataTable{
-    tbody {
-        tr{
-            td {
-                vertical-align: middle;
+.datalist-wrapper.hidden{
+    &.hidden{
+        visibility: hidden;
+    }
+    table.datalist.dataTable{
+        tbody {
+            tr{
+                td {
+                    vertical-align: middle;
 
-                &:hover{
-                    cursor:pointer;
-                }
+                    &:hover{
+                        cursor:pointer;
+                    }
 
-                &.control:before{
-                    border:none;
-                    height:2em;
-                    width:2em;
-                    left:calc(50% - .5em);
-                    top:calc(50% - .5em);
-                    line-height:2em;
+                    &.control:before{
+                        border:none;
+                        height:2em;
+                        width:2em;
+                        left:calc(50% - .5em);
+                        top:calc(50% - .5em);
+                        line-height:2em;
+                    }
                 }
             }
         }
     }
+
+    .dtsb-searchBuilder{
+        .dtsb-add{
+            width:100% !important;
+            background:$primary !important;
+            border-color:$primary !important;
+            color:white !important;
+        }
+
+        .dtsb-clearAll{
+            background:$secondary !important;
+            border-color:$secondary !important;
+            color:white !important;
+            float:right;
+        }
+
+        .dtsb-right,.dtsb-delete{
+            border:1px solid $secondary;
+        }
+
+        .dtsb-titleRow{
+            height:auto !important;
+            display:inline-block;
+            width:100%;
+            min-height:0px !important;
+        }
+
+        .dtsb-title{
+            display:none !important;
+            padding-top:0px !important;
+        }
+    }
+}
+#overlay {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 99999;
+    background-color: #343A40;
+    -moz-opacity: 0.85;
+    opacity: 0.85;
+    display: none;
+
+    #loadingSpinner{
+        left:calc(50% - 3rem - 1.5rem);
+        top:calc(50% - 3rem - 1.5rem);
+        z-index:9999999;
+        background:white;
+        text-align:center;
+    }
+
 }
 
-.dtsb-searchBuilder{
-    .dtsb-add{
-        width:100% !important;
-        background:$primary !important;
-        border-color:$primary !important;
-        color:white !important;
-    }
 
-    .dtsb-clearAll{
-        background:$secondary !important;
-        border-color:$secondary !important;
-        color:white !important;
-        float:right;
-    }
 
-    .dtsb-right,.dtsb-delete{
-        border:1px solid $secondary;
-    }
-
-    .dtsb-titleRow{
-        height:auto !important;
-        display:inline-block;
-        width:100%;
-        min-height:0px !important;
-    }
-
-    .dtsb-title{
-        display:none !important;
-        padding-top:0px !important;
-    }
-}

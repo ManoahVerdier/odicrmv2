@@ -20,10 +20,10 @@ class CreateClientsTable extends Migration
                 /*Infos générales*/
                 $table->text('name');
                 $table->text('type');
-                $table->text('branch_code');
+                $table->text('branch_id');
                 $table->text('address')->nullable();
-                $table->text('city')->nullable();
                 $table->text('postal_code')->nullable();
+                $table->text('city')->nullable();
                 $table->text('department')->nullable();
                 $table->text('country')->nullable();
                 $table->text('phone')->nullable();

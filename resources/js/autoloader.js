@@ -11,7 +11,7 @@ export class Autoloader {
 
         switch (page) {
             case 'list':
-                    new Datalist();
+                    window.datalist = new Datalist();
                 break;
             case 'fieldEdit':
                     window.fieldEdit = new FieldEdit();

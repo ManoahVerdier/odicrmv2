@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\ClientCommercial;
+use App\Models\Agent;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClientCommercialFactory extends Factory
@@ -28,7 +29,7 @@ class ClientCommercialFactory extends Factory
             "client_relationship"   =>  $this->faker->text(20),
             "priority"              =>  $this->faker->text(20),
             "odice_agent"           =>  $this->faker->text(20),
-            "agent_id"              =>  rand(10000, 99999),
+            "agent_id"              =>  Agent::all()->random()->id,
             "deals_nb"              =>  rand(0, 20),
             "deals_amount"          =>  rand(0, 2000000),
             "deals_estim_amount"    =>  rand(0, 1500000),

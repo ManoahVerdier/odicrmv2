@@ -13730,15 +13730,19 @@ a.text-dark:focus {
   }
 }
 
-table.datalist.dataTable tbody tr td {
+.datalist-wrapper.hidden.hidden {
+  visibility: hidden;
+}
+
+.datalist-wrapper.hidden table.datalist.dataTable tbody tr td {
   vertical-align: middle;
 }
 
-table.datalist.dataTable tbody tr td:hover {
+.datalist-wrapper.hidden table.datalist.dataTable tbody tr td:hover {
   cursor: pointer;
 }
 
-table.datalist.dataTable tbody tr td.control:before {
+.datalist-wrapper.hidden table.datalist.dataTable tbody tr td.control:before {
   border: none;
   height: 2em;
   width: 2em;
@@ -13747,35 +13751,56 @@ table.datalist.dataTable tbody tr td.control:before {
   line-height: 2em;
 }
 
-.dtsb-searchBuilder .dtsb-add {
+.datalist-wrapper.hidden .dtsb-searchBuilder .dtsb-add {
   width: 100% !important;
   background: #3490dc !important;
   border-color: #3490dc !important;
   color: white !important;
 }
 
-.dtsb-searchBuilder .dtsb-clearAll {
+.datalist-wrapper.hidden .dtsb-searchBuilder .dtsb-clearAll {
   background: #6c757d !important;
   border-color: #6c757d !important;
   color: white !important;
   float: right;
 }
 
-.dtsb-searchBuilder .dtsb-right,
-.dtsb-searchBuilder .dtsb-delete {
+.datalist-wrapper.hidden .dtsb-searchBuilder .dtsb-right,
+.datalist-wrapper.hidden .dtsb-searchBuilder .dtsb-delete {
   border: 1px solid #6c757d;
 }
 
-.dtsb-searchBuilder .dtsb-titleRow {
+.datalist-wrapper.hidden .dtsb-searchBuilder .dtsb-titleRow {
   height: auto !important;
   display: inline-block;
   width: 100%;
   min-height: 0px !important;
 }
 
-.dtsb-searchBuilder .dtsb-title {
+.datalist-wrapper.hidden .dtsb-searchBuilder .dtsb-title {
   display: none !important;
   padding-top: 0px !important;
+}
+
+#overlay {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 99999;
+  background-color: #343A40;
+  -moz-opacity: 0.85;
+  opacity: 0.85;
+  display: none;
+}
+
+#overlay #loadingSpinner {
+  left: calc(50% - 3rem - 1.5rem);
+  top: calc(50% - 3rem - 1.5rem);
+  z-index: 9999999;
+  background: white;
+  text-align: center;
 }
 
 #field-values-edit-page .ui-sortable span.move {
@@ -13794,5 +13819,27 @@ table.datalist.dataTable tbody tr td.control:before {
   right: -1.5em;
   top: calc(50% - .75em);
   cursor: pointer;
+}
+
+.modal-info .info-line:hover {
+  background-color: #505050;
+  color: white;
+}
+
+body[content=show] .deal {
+  overflow: hidden;
+}
+
+body[content=show] .deal .status {
+  transform: rotate(30deg);
+  top: -10px;
+}
+
+body[content=show] .deal .status.fa-paper-plane {
+  transform: rotate(10deg) !important;
+}
+
+body[content=show] .deal .status.fa-handshake {
+  transform: rotate(-30deg) !important;
 }
 

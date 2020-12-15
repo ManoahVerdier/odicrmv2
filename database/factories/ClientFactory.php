@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Client;
+use App\Models\Branch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str; 
 
@@ -14,7 +15,6 @@ class ClientFactory extends Factory
      * @var string
      */
     protected $model = Client::class;
-    protected $branches = ['pf','martinon','ahries'];
     /**
      * Define the model's default state.
      *
@@ -25,7 +25,7 @@ class ClientFactory extends Factory
         
         return [
             'type'=>"client",
-            'branch_code'=>$this->branches[rand(0, 2)],
+            'branch_id'=>Branch::all()->random()->id,
             'name'=>$this->faker->name,
             'address'=>$this->faker->address,
             'city'=>$this->faker->city,

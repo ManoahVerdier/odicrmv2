@@ -104,6 +104,13 @@ return [
             "amount"                =>  "Montant contrat"       ,
             "manager"               =>  "Chef secteur contrat"  ,
             "commercial_action"     =>  "Action commerciale contrat"
+        ],
+        'agents'=>[
+            'name'=>'Commercial'
+        ],
+        'branches'=>[
+            'name'=>'Société',
+            'code'=>'Code Société',
         ]
     ]
 ];

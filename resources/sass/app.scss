@@ -20,3 +20,29 @@
 
 //JQuery ui
 @import '~jquery-ui/themes/base/all.css';
+
+.modal-info{
+    .info-line:hover{
+        background-color:#505050;
+        color:white;
+    }
+} 
+
+
+body[content="show"]{
+    .deal{
+        .status{
+            transform:rotate(30deg);
+            top:-10px;
+            &.fa-paper-plane{
+                transform:rotate(10deg) !important;
+            }
+                
+            &.fa-handshake{
+                transform:rotate(-30deg) !important;
+            }
+        }
+            
+        overflow:hidden;
+    }
+}

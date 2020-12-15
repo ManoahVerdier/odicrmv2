@@ -6,7 +6,9 @@ use App\Models\Client;
 use App\Models\ClientContract;
 use App\Models\ClientCommercial;
 use App\Models\ClientField;
+use App\Models\FieldValue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ClientController extends Controller
 {
@@ -130,10 +132,7 @@ class ClientController extends Controller
     public function clientsDataSourceAjax(Request $request)
     {
         //Récupération des paramètres de la liste
-        $search = $request->post('search', array('value' => '', 'regex' => false));
         $draw   = $request->post('draw', 0);
-        $start  = $request->post('start', 0);
-        $length = $request->post('length', 25);
         $order  = $request->post('order', array(array('column'=>1,'dir'=>'asc'))); 
 
         //dd($request);
@@ -141,33 +140,17 @@ class ClientController extends Controller
         // Récupération de la liste des colonnes
         $columns = Client::columnsWithExtended();
         
-
         //Initialisation de la requête
         $query = Client::leftJoin('clients_commercials', 'clients.id', '=', 'clients_commercials.client_id');
         $query->leftJoin('clients_contracts', 'clients.id', '=', 'clients_contracts.client_id');
+        $query->leftJoin('agents', 'clients_commercials.agent_id', '=', 'agents.id');
+        $query->leftJoin('branches', 'clients.branch_id', '=', 'branches.id');
         foreach ($columns as $col) {
-            $query->addSelect($col);
-        }
-        
-
-        //Gestion des filtres par colonne
-        /*$filter = array();
-        foreach ($request->columns as $column) {
-            
-            if ($column['search']['value'] ?? false) {
-                $filter[$column['name']] = $column['search']['value'];
+            if (Str::contains($col, 'clients')) {
+                $query->addSelect($col);
+            } else {
+                $query->addSelect("$col as ".str_replace('.', '_', $col));
             }
-        }
-        if (!empty($filter)) {
-            foreach ($filter as $column => $value) {
-                $query->where($column, 'like', '%'.$value.'%');
-            }
-            
-        }*/
-        
-        //Gestion de la recherche générale
-        if (!empty($search['value'])) {
-            $query->where('clients.name', 'like', '%'.$search['value'].'%');
         }
         
         //Nombre total de résultats
@@ -185,8 +168,12 @@ class ClientController extends Controller
             'data' => []
         );
 
+        
+
         //Execution de la requête et remplissage du json
         $clients = $query->get();
+
+
         foreach ($clients as $client) {
             $json['data'][] = array_values($client->toArray());
         }
@@ -233,7 +220,7 @@ class ClientController extends Controller
     public function loadInput(Request $request)
     {
         $field = $request->post('column');
-        $client_structure = ClientField::where('name', $field)->first();
+        $client_structure = ClientField::where('field_name', $field)->first();
         if ($client_structure->is_select) {
             if ($client_structure->is_boolean) {
                 return [
@@ -245,17 +232,14 @@ class ClientController extends Controller
                     ]
                 ];
             } else {
+                $values = FieldValue::where('field_name', $field)
+                    ->where('target_name', 'clients')
+                    ->get()
+                    ->toArray();
                 return [
                     "name"=>$field,
                     "element"=>"select",
-                    "values"=>[
-                        "0",
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                    ]
+                    "values"=>$values
                 ];
             }
         } else {
@@ -266,12 +250,6 @@ class ClientController extends Controller
                 "pattern"=>$client_structure->pattern
             ];  
         }
-        /*return [
-            "name"=>$field,
-            "type"=>"input"
-        ];*/
-        
-        
     }
 
     /**
@@ -305,7 +283,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return view('pages.clients.show', compact('client'));
     }
 
     /**

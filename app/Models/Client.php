@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Schema;
 
 class Client extends Model
 {
     use HasFactory,softDeletes;
 
-    protected $guarded = ['id'];
+    protected $guarded = ['id', 'updated_at', 'deleted_at', 'created_at'];
 
-    protected $exclude = ['client_id', 'updated_at', 'created_at', 'deleted_at'];
+    protected $exclude = ['client_id', 'updated_at', 'created_at', 'deleted_at', 'branch_id'];
+
+    protected $exclude_extended = ['branch_code', 'agent_id'];
 
     /**
      * Lien vers les données de contrat
@@ -36,6 +37,17 @@ class Client extends Model
     }
 
     /**
+     * Lien vers les données de contrat
+     *
+     * @return \app\models\Branch
+     */
+    public function branch() 
+    {
+        return $this->hasOne(Branch::class);
+    }
+
+
+    /**
      * Fourni les noms des colonnes
      *
      * @return Illuminate\Support\Collection
@@ -53,12 +65,30 @@ class Client extends Model
     {
         $client = Client::columns();
         
-        $client[0]="clients.id";
+        foreach ($client as $key=>$field) {
+            $client["$key"]='clients.'.$field;
+        }
 
+        $client[0]="clients.id";
+        
         $contract = ClientContract::columns();
         
         $commercial = ClientCommercial::columns();
+
+        $agent = Agent::columnsVisible();
+
+        $branch = Branch::columnsVisible();
         
-        return array_merge($client, $contract, $commercial);
+        $obj = new Client;
+        return array_diff(
+            array_merge(
+                $client, 
+                $contract, 
+                $commercial,
+                $agent,
+                $branch
+            ), 
+            $obj->exclude_extended
+        );
     }
 }

@@ -23,7 +23,6 @@ content="list"
 @section('content')
 <div class="container-fluid">
     <h1 class="text-center display-4 text-dark">Clients</h1>
-
     @include(
         "layouts.partials.datalist",
         [
@@ -34,6 +33,7 @@ content="list"
             "excel_export"=>true,
             "pdf_export"=>true,
             "saved_queries"=>true,
+            "advanced_filters"=>true,
         ]
     )
 </div>

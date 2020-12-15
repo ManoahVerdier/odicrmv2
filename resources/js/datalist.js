@@ -1,43 +1,58 @@
 import { eq } from 'lodash';
 
-require('datatables.net');
-require('datatables.net-select' );
-require('datatables.net-dt' );
-require('datatables.net-responsive' );
-require('datatables.net-select-dt' );
-require('datatables.net-searchpanes-dt'); 
-require('datatables.net-searchbuilder-bs4'); 
-require('datatables.net-buttons-dt' );
-require('datatables.net-buttons');
-
 require('datatables.net-bs4');
 require('datatables.net-buttons-bs4');
 require('datatables.net-buttons/js/buttons.colVis.js');
 require('datatables.net-buttons/js/buttons.print.js');
 require('datatables.net-buttons/js/buttons.html5.js' );
+require('datatables.net-responsive' );
+
+require('datatables.net-select' );
+
 import jsZip from 'jszip';
 import { MassEdit } from './massedit';
 import { SavedQueries } from './savedqueries';
 window.JSZip = jsZip;
-window.pdfMake = require('pdfmake/build/pdfmake.js');
-var vfs = require('pdfmake/build/vfs_fonts.js');
-window.pdfMake.vfs = vfs.pdfMake.vfs;
+
 
 
 export class Datalist {
-    constructor(){
+    constructor(){       
         /*Pour chaque tableau concerné chaque tableau*/
         $('.datalist').each((index, el) => {
+            if($(el).attr('saved_queries') == '1') {
+                require('datatables.net-searchbuilder-bs4'); 
+            }
+
+            if($(el).attr('pdf_export') == '1' && window.pdfMake ==undefined) {
+                window.pdfMake = require('pdfmake/build/pdfmake.js');
+                var vfs = require('pdfmake/build/vfs_fonts.js');
+                window.pdfMake.vfs = vfs.pdfMake.vfs;
+            }
+
+            /* Affichage du spinner */
+            this.showLoading();
+            this.name=$(el).attr('name');
             /* Récupération des noms et labels des colonnes*/
             let cols = [];
             $(el).find('thead th[real-column=1]').each((index,el)=>{
-                cols[index]=
-                    {
-                        name: $(el).attr('column-name'),
-                        title: $(el).text(),
-                    };
+                console.log($(el).attr('column-name'));
+                if($(el).attr('column-name').indexOf('amount')>0) {
+                    cols[index]=
+                        {
+                            name: $(el).attr('column-name'),
+                            title: $(el).text(),
+                            render: $.fn.dataTable.render.number(' ', ',', 2, '', ' €' )
+                        };
+                } else {
+                    cols[index]=
+                        {
+                            name: $(el).attr('column-name'),
+                            title: $(el).text()
+                        };
+                }
+                
             });
-
             //Création des filtres par colonnes
             if($(el).attr('column_filtering')=='1') {
                 this.addColFiltering(el);
@@ -48,14 +63,20 @@ export class Datalist {
             if(window.mobileCheck()){
                 visibleCols = "_all";
             } else {
-                visibleCols = [1,2,3,4,5,6,7,8,9];
+                let colIndex=0;
+                let max = $(el).find('tr.header-first th').length<6?$(el).find('tr.header-first th').length:6;
+                for(colIndex=0;colIndex<max-1;colIndex++){
+                    visibleCols.push(colIndex+1);
+                }
+            }
+
+            if($(el).attr('advanced_filters') == '1') {
+                require('datatables.net-searchpanes-dt'); 
             }
 
             //Instanciation de l'objet Datatables
             window.datatable = $(el).DataTable(
                 {
-                    /*serverSide: 
-                        true,*/
                     ajax: 
                     {
                         url: $(el).attr('datasource'), 
@@ -96,10 +117,10 @@ export class Datalist {
                                 '_all', 
                             visible: 
                                 false,
-                            searchPanes:
+                            /*searchPanes:
                             {
-                                threshold: 0.8
-                            }
+                                threshold: 0.5
+                            }*/
                         },
                         {
                             className: 'control',
@@ -121,15 +142,20 @@ export class Datalist {
                             target:0
                         }
                     },
-                    searchPanes: {
+                    /*searchPanes: {
                         cascadePanes: true,
                         viewTotal: true
-                    },
+                    },*/
                     deferRender: true,
-                    "processing": true,
+                    processing: true,
+                    paging:true,
+                    stateSave:true,
+                    scrollX:true,
+                    initComplete:function(){
+                        window.datalist.hideLoading();
+                    }
                 }
             );
-            
             if(window.mobileCheck()){
                 $(el).find('tbody').on('click', 'tr td:not(:first)', function(event) {
                     let table = window.datatable;
@@ -147,7 +173,6 @@ export class Datalist {
                     window.location = base_url.replace('?',row[0]);
                 });
             }
-
             if($(el).attr('mass_edit') == '1') {
                 window.massedit = new MassEdit($(el).attr('name'));
             }
@@ -156,6 +181,7 @@ export class Datalist {
                 window.savedQueries = new SavedQueries($(el).attr('name'));   
             }
         });
+        $('.datalist').show();
     }
 
     //Création des filtres par colonnes
@@ -354,12 +380,18 @@ export class Datalist {
                     "className":"btn-dark"
                 }
             );
-            buttons.push(
-                {
-                    extend:"searchPanes",
-                    "className":"btn-dark"
-                }
-            );
+            if($(el).attr('advanced_filters') == '1') {
+                buttons.push(
+                    {
+                        extend:"searchPanes",
+                        "className":"btn-dark",
+                        config: {
+                            threshold:0.8
+                        }
+
+                    }
+                );
+            }
             if($(el).attr('mass_edit') == '1') {
                 buttons.push(
                     {
@@ -374,5 +406,16 @@ export class Datalist {
             
         }
         return buttons;
+    }
+    showLoading(name){
+        $("#overlay").show();
+        $('.datalist-wrapper').addClass('hidden');
+        $('#loadingSpinner').show();
+    }
+
+    hideLoading(){
+        $("#overlay").hide();
+        $('.datalist-wrapper').removeClass('hidden');
+        $('#loadingSpinner').hide();
     }
 }

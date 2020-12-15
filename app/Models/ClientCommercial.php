@@ -11,6 +11,7 @@ class ClientCommercial extends Model
     use HasFactory,softDeletes;
 
     protected $table = 'clients_commercials';
+    protected $guarded = ['id', 'client_id', 'updated_at', 'created_at', 'deleted_at'];
     protected $exclude = ['id', 'client_id', 'updated_at', 'created_at', 'deleted_at'];
 
     /**
@@ -21,6 +22,16 @@ class ClientCommercial extends Model
     public function client()
     {
         return $this->belongsTo(Clients::class);
+    }
+
+    /**
+     * Lien vers le commercial associé
+     *
+     * @return \App\models\Agent
+     */
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
     }
 
     /**

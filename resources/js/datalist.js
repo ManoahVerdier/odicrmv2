@@ -36,7 +36,6 @@ export class Datalist {
             /* Récupération des noms et labels des colonnes*/
             let cols = [];
             $(el).find('thead th[real-column=1]').each((index,el)=>{
-                console.log($(el).attr('column-name'));
                 if($(el).attr('column-name').indexOf('amount')>0) {
                     cols[index]=
                         {

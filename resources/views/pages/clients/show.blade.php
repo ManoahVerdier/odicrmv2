@@ -2,8 +2,9 @@
 
 @section('extra-meta')
     <meta name="deal_get_url" content="{{route('deals.ajaxGet',['deal'=>'?'])}}"/>
-    <!--<meta name="massedit_url" content="{{route('clients.massEdit')}}"/>
-    <meta name="loadinput_url" content="{{route('clients.loadInput')}}"/>-->
+    @if($deal ?? false)
+        <meta name="initial_deal" content="{{$deal->id}}"/>
+    @endif
 @endsection
 
 @section('title', env('APP_NAME')." - ".$client->name)

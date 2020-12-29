@@ -3,13 +3,13 @@ export class SavedQueries {
         this.name = name;
         this.selected=-1;
         this.select = this.initSelect();
-        this.updateSelect();
         this.initButtons();
+        this.updateSelect();
         
-        
+    
         new $.fn.dataTable.SearchBuilder(window.datatable, {});
         this.searchBuilder = window.datatable.searchBuilder;
-        window.datatable.searchBuilder.container().appendTo("#clients-savedqueries-conditions");
+        window.datatable.searchBuilder.container().appendTo("#"+this.name+"-savedqueries-conditions");
         
         this.addControl();
         this.initEvents();
@@ -24,7 +24,6 @@ export class SavedQueries {
         let oldSelected = this.selected;
         this.selected=$('#selectSavedQueries').val();
         if(this.selected!=-1) {
-            
             window.savedQueries.loadSavedQuery();
         } else {
             window.savedQueries.resetSavedQueries(oldSelected);
@@ -46,14 +45,14 @@ export class SavedQueries {
 
     saveCurrentQuery() {
         if($('#saved-queries-name').get(0).reportValidity() && $('#saved-queries-visibility').get(0).reportValidity()) {
+            let url = $('meta[name="store_segment_url"]').attr('content');
             $.ajax({
-                url: "/segments",
+                url: url,
                 type: "POST",
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 data: {
-                    
                     type: this.name,
                     name: $('#saved-queries-name').val(),
                     data: JSON.stringify(this.searchBuilder.getDetails()),
@@ -128,7 +127,7 @@ export class SavedQueries {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            cache: false,
+            cache: false
         });
     }
 
@@ -159,7 +158,6 @@ export class SavedQueries {
             },
             success: function(dataResult){
                 dataResult=JSON.parse(dataResult);
-                console.log(dataResult.data);
                 window.savedQueries.searchBuilder.rebuild(JSON.parse(dataResult.data));
                 $('#saved-queries-name').val(dataResult.name);
                 $('#saved-queries-visibility').val(dataResult.visibility);
@@ -191,13 +189,13 @@ export class SavedQueries {
             success: function(dataResult){
                 let select=window.savedQueries.select;
                 dataResult=JSON.parse(dataResult);
-                console.log(dataResult);
                 if(dataResult.selected != ""){
                     window.savedQueries.selected=dataResult.selected;
+                    $('.edit').show();
+                    $('.add').hide();
                 }
                 for(let index=0;index<dataResult.list.length;index++){
                     let data = dataResult.list[index];
-                    console.log(data);
                     var opt = $("<option></option"); 
                     opt.val(data.id); 
                     opt.html(data.name); 

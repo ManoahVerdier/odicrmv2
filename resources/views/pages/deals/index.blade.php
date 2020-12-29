@@ -4,6 +4,7 @@
     <meta name="detail_url" content="{{route('deals.show',['deal'=>'?'])}}"/>
     <meta name="massedit_url" content="{{route('deals.massEdit')}}"/>
     <meta name="loadinput_url" content="{{route('deals.loadInput')}}"/>
+    <meta name="store_segment_url" content="{{route('segments.store')}}"/>
 @endsection
 
 @section('title', env('APP_NAME')." - Deals")

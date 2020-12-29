@@ -4,6 +4,7 @@
     <meta name="detail_url" content="{{route('clients.show',['client'=>'?'])}}"/>
     <meta name="massedit_url" content="{{route('clients.massEdit')}}"/>
     <meta name="loadinput_url" content="{{route('clients.loadInput')}}"/>
+    <meta name="store_segment_url" content="{{route('segments.store')}}"/>
 @endsection
 
 @section('title', env('APP_NAME')." - Clients")

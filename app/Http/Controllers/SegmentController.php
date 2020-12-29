@@ -52,6 +52,7 @@ class SegmentController extends Controller
     public function store(Request $request)
     {
         $segment = Segment::create($request->all());
+        session([$segment->type.'_segment_selected' => $segment->id]);
         return json_encode(array("statusCode"=>200,"id"=>$segment->id));
     }
 
@@ -100,7 +101,6 @@ class SegmentController extends Controller
     public function destroy(Segment $segment)
     {
         session()->forget($segment->type.'_segment_selected');
-        session()->flush();
         $segment->delete();
         return json_encode(array("statusCode"=>200));
     }
@@ -115,7 +115,6 @@ class SegmentController extends Controller
     public function forget(Segment $segment)
     {
         session()->forget($segment->type.'_segment_selected');
-        session()->flush();
         return json_encode(array("statusCode"=>200));
     }
 }

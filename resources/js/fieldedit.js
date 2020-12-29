@@ -12,7 +12,6 @@ export class FieldEdit {
         this.editing=-1;
         this.modalAdd = $('#add-field-value').modal('hide');
         this.modalEdit = $('#edit-field-value').modal('hide');
-        console.log(this);
         this.loadList();
         this.addGlobalEvents();
     }
@@ -105,7 +104,6 @@ export class FieldEdit {
         $('#edit-field-value-valid').off('click');
         $('#edit-field-value-valid').on('click',function(){
             if($('#new_label').get(0).reportValidity()){
-                console.log($('meta[name="fieldvalue_url"]').attr("content")+"/"+window.fieldEdit.editing);
                 $.ajax({
                     type: 'POST',
                     url: $('meta[name="fieldvalue_url"]').attr("content")+"/"+window.fieldEdit.editing,

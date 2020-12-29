@@ -13782,6 +13782,10 @@ a.text-dark:focus {
   padding-top: 0px !important;
 }
 
+.datalist-wrapper.hidden .dtsp-searchPane .selected {
+  background: #cecece;
+}
+
 #overlay {
   height: 100%;
   width: 100%;
@@ -13803,6 +13807,12 @@ a.text-dark:focus {
   text-align: center;
 }
 
+.dt-button-background {
+  background-color: #343A40;
+  -moz-opacity: 0.85;
+  opacity: 0.85;
+}
+
 #field-values-edit-page .ui-sortable span.move {
   left: 3%;
   top: calc(50% - 5px);
@@ -13821,25 +13831,57 @@ a.text-dark:focus {
   cursor: pointer;
 }
 
-.modal-info .info-line:hover {
-  background-color: #505050;
-  color: white;
-}
-
-body[content=show] .deal {
+body[content=show-client] .deal {
   overflow: hidden;
 }
 
-body[content=show] .deal .status {
+body[content=show-client] .deal .status {
   transform: rotate(30deg);
   top: -10px;
 }
 
-body[content=show] .deal .status.fa-paper-plane {
+body[content=show-client] .deal .status.fa-paper-plane {
   transform: rotate(10deg) !important;
 }
 
-body[content=show] .deal .status.fa-handshake {
+body[content=show-client] .deal .status.fa-handshake {
   transform: rotate(-30deg) !important;
+}
+
+body[content=show-client] #dealInfo #main-infos .icon {
+  width: 6em;
+  height: 5em;
+  text-align: center;
+}
+
+body[content=show-client] #dealInfo #main-infos .icon .icon-circle {
+  content: " ";
+  border: 5px solid #17a2b8;
+  width: 6.5em;
+  height: 6.5em;
+  display: inline-block;
+  left: -0.25em;
+  top: -1.2em;
+  position: absolute;
+  border-radius: 4em;
+}
+
+body[content=show-client] #dealInfo #probability .progress-label {
+  position: absolute;
+  left: 40%;
+  top: 4px;
+  font-weight: bold;
+  width: 20%;
+  text-align: center;
+  z-index: 1;
+}
+
+body[content=show-client] #dealInfo .text-info {
+  color: #17a2b8 !important;
+}
+
+body[content=show-client] .modal-info .info-line:hover {
+  background-color: #505050;
+  color: white;
 }
 

@@ -66,3 +66,4 @@ Route::resource('fieldvalues', App\Http\Controllers\FieldValueController::class)
 Route::resource('agents', App\Http\Controllers\AgentController::class);
 Route::resource('branches', App\Http\Controllers\BranchController::class);
 Route::resource('deals', App\Http\Controllers\DealController::class);
+Route::get('/deals/ajax/{deal}', [App\Http\Controllers\DealController::class, 'ajaxGet'])->name('deals.ajaxGet');

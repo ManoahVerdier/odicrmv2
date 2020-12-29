@@ -1,0 +1,65 @@
+body[content="show-client"]{
+    .deal{
+        .status{
+            transform:rotate(30deg);
+            top:-10px;
+            &.fa-paper-plane{
+                transform:rotate(10deg) !important;
+            }
+                
+            &.fa-handshake{
+                transform:rotate(-30deg) !important;
+            }
+        }
+            
+        overflow:hidden;
+    }
+
+    #dealInfo{
+        #main-infos{
+            .icon{
+                width:6em;
+                height:5em;
+                text-align:center;
+            
+                .icon-circle{
+                    content:" ";
+                    border:5px solid #17a2b8;
+                    width:6.5em;
+                    height:6.5em;
+                    display:inline-block;
+                    left:-.25em;
+                    top:-1.2em;
+                    position:absolute;
+                    border-radius:4em;
+                }
+            }
+        }
+    
+        #probability{
+            .progress-label {
+                position: absolute;
+                left: 40%;
+                top: 4px;
+                font-weight: bold;
+                width:20%;
+                text-align:center;
+                z-index:1;
+            }
+        }
+    
+        .text-info{
+            color:#17a2b8 !important;
+        }
+            
+        
+    }
+
+    .modal-info{
+        .info-line:hover{
+            background-color:#505050;
+            color:white;
+        }
+    } 
+    
+}

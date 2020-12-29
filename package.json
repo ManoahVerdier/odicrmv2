@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.1",
+        "autonumeric": "^4.6.0",
         "datatables.net": "^1.10.22",
         "datatables.net-bs4": "^1.10.22",
         "datatables.net-buttons-bs4": "^1.6.5",

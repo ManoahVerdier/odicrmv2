@@ -142,10 +142,6 @@ export class Datalist {
                             target:0
                         }
                     },
-                    /*searchPanes: {
-                        cascadePanes: true,
-                        viewTotal: true
-                    },*/
                     deferRender: true,
                     processing: true,
                     paging:true,
@@ -154,6 +150,7 @@ export class Datalist {
                     initComplete:function(){
                         window.datalist.hideLoading();
                     }
+                    
                 }
             );
             if(window.mobileCheck()){
@@ -180,6 +177,7 @@ export class Datalist {
             if($(el).attr('saved_queries') == '1') {
                 window.savedQueries = new SavedQueries($(el).attr('name'));   
             }
+            
         });
         $('.datalist').show();
     }
@@ -386,7 +384,13 @@ export class Datalist {
                         extend:"searchPanes",
                         "className":"btn-dark",
                         config: {
-                            threshold:0.8
+                            threshold:0.8,
+                            cascadePanes:true,
+                            viewTotal: true,
+                            layout: 'columns-4'
+                        },
+                        attr:  {
+                            id: 'panesButton'
                         }
 
                     }

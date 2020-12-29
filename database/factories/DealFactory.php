@@ -43,10 +43,10 @@ class DealFactory extends Factory
             "more"              =>  $this->faker->text(80),
             "branch_id"         =>  Branch::all()->random()->id,
             "agent_id"          =>  Agent::all()->random()->id,
-            "step_id"           =>  rand(0, 10),
+            "step_id"           =>  rand(1, 7),
             "target"            =>  'client',
             "target_id"         =>  Client::all()->random()->id,
-            "target_class"      =>  'App\Models\Client::class',
+            "target_class"      =>  'App\Models\Client',
         ];
     }
 }

@@ -46,6 +46,21 @@ class Client extends Model
         return $this->hasOne(Branch::class);
     }
 
+    /**
+     * Liste les deals liés
+     *
+     * @return Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function deals()
+    {
+        return $this->morphMany(
+            Deal::class, 
+            "mainTarget", 
+            "target_class", 
+            "target_id", 
+            "id"
+        );
+    }
 
     /**
      * Fourni les noms des colonnes

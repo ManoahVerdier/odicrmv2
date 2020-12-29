@@ -45,6 +45,9 @@
         <span>{{__('utils.loading')}}</span>
     </div>
 </div>
+<div id="overlayPanes">
+    
+</div>
 @if($mass_edit ?? false)
     @include(
         "layouts.partials.modals.mass_edit",

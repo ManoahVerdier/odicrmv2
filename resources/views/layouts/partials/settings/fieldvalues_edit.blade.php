@@ -2,7 +2,6 @@
     <div class="col-md-2 border-right">
         <ul class="nav nav-pills flex-column">
             @foreach($list as $field)
-                
                 <li class="nav-item">
                     <a 
                         target_name={{$field->target_name}} 

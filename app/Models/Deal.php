@@ -12,6 +12,7 @@ class Deal extends Model
 
     protected $exclude_extended = ['branch_id', 'agent_id', 'step_id', 'other_id', 'target', 'target_id', 'target_class'];
     protected $exclude = ['updated_at', 'created_at', 'deleted_at'];
+    protected $hidden = ['agent_id', 'target', 'target_class', 'target_id', 'step_id', 'branch_id'];
 
     public static function columnsWithExtended()
     {
@@ -51,5 +52,30 @@ class Deal extends Model
         } else {
             return array();
         }
+    }
+
+    /**
+     * Retourne le client/contact associé
+     *
+     * @return Illuminate\Database\Eloquent\Relations\MorphTo
+     */
+    public function mainTarget()
+    {
+        return $this->morphTo(
+            "mainTarget", 
+            "target_class", 
+            "target_id", 
+            "id"
+        );
+    }
+
+    public function step()
+    {
+        return $this->belongsTo(Step::class);
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 }

@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('extra-meta')
-    <!--<meta name="detail_url" content="{{route('clients.show',['client'=>'?'])}}"/>
-    <meta name="massedit_url" content="{{route('clients.massEdit')}}"/>
+    <meta name="deal_get_url" content="{{route('deals.ajaxGet',['deal'=>'?'])}}"/>
+    <!--<meta name="massedit_url" content="{{route('clients.massEdit')}}"/>
     <meta name="loadinput_url" content="{{route('clients.loadInput')}}"/>-->
 @endsection
 
@@ -10,7 +10,7 @@
 
 @section('body-attr')
 id="clients-show-page"
-content="show"
+content="show-client"
 @endsection
 
 {{-- Header --}}
@@ -22,9 +22,15 @@ content="show"
 {{-- Content --}}
 @section('content')
 <div class="container-fluid">
+
+    {{-- Name --}}
     <h1 class="text-center display-4 text-dark">{{$client->name}}</h1>
-    <div class="row">
-        <div class="col-12 col-md-4">
+
+    {{-- First line --}}
+    <div class="row" id="first-line">
+
+        {{-- Infos --}}
+        <div class="col-12 col-md-4" id="infos">
             @include(
                 'layouts.partials.info_box',
                 [
@@ -38,7 +44,9 @@ content="show"
                 ]
             )
         </div>
-        <div class="col-12 col-md-4">
+
+        {{-- Commercial --}}
+        <div class="col-12 col-md-4" id="commercial">
             @include(
                 'layouts.partials.info_box',
                 [
@@ -50,7 +58,9 @@ content="show"
                 ]
             )
         </div>
-        <div class="col-12 col-md-4">
+
+        {{-- Contract --}}
+        <div class="col-12 col-md-4" id="contract">
             @include(
                 'layouts.partials.info_box',
                 [
@@ -63,13 +73,19 @@ content="show"
             )
         </div>
     </div>
-    <div class="row mt-3">
+
+    {{-- Deals --}}
+    <div class="row mt-3" id="deals">
         @include(
             'layouts.partials.deals'
         )
     </div>
 </div>
+
+{{-- Modals --}}
 <div id="modals">
+
+    {{-- More infos modal --}}
     @include(
         'layouts.partials.modals.show_all_infos',
         [
@@ -79,5 +95,18 @@ content="show"
             'target'=>'clients'
         ]
     )
+
+    {{-- Deal-modal --}}
+    @if($client->deals->count()>0)
+        @include(
+            'layouts.partials.modals.deal_infos',
+            [
+                'title'=>"Infos client",
+                "modalId"=>'allFieldsClient',
+                'infos'=>array_diff($client->deals->first()->columns(), ['id', 'title', 'more']),
+                'target'=>'deals'
+            ]
+        )
+    @endif
 </div>
 @endsection

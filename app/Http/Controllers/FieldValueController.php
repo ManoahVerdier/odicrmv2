@@ -24,6 +24,7 @@ class FieldValueController extends Controller
             ->distinct()
             ->get()
             ->groupBy('target_name');
+
         return view('pages.settings.fieldvalues', compact('targets'));
     }
 

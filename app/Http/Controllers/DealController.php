@@ -105,7 +105,22 @@ class DealController extends Controller
      */
     public function show(Deal $deal)
     {
-        //
+        //dd($deal->step);
+        $client = $deal->mainTarget;
+
+        return view('pages.clients.show', compact('client', 'deal'));
+    }
+
+    /**
+     * Get the specified resource.
+     *
+     * @param  \App\Models\Deal  $deal
+     * @return \Illuminate\Http\Response
+     */
+    public function ajaxGet(Deal $deal)
+    {
+        return Deal::with('step')->with('branch')->findOrFail($deal->id)->toJson();
+        //return $deal->step->toJson();
     }
 
     /**

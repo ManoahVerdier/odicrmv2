@@ -13,7 +13,13 @@ use App\Models\Segment;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get(
+    '/', 
+    function () {
+        echo "<a href='".route('deals.index')."'>Deals</a>";
+        echo "<a href='".route('clients.index')."'>Clients</a>";
+    }
+)->name('home');
 Route::post(
     '/clients/dataSource', 
     [App\Http\Controllers\ClientController::class, 'clientsDataSourceAjax']

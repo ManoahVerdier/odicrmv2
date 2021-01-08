@@ -30,7 +30,7 @@ class DealFactory extends Factory
         return [
             "title"             =>  $this->faker->text(20),
             "amount"            =>  rand(0, 10000000),
-            "probability"       =>  $this->step[$step],
+            "probability"       =>  $this->steps[$step],
             "project_lead"      =>  $this->faker->text(10),
             "prime_contractor"  =>  $this->faker->text(10),
             "bearer"            =>  $this->faker->text(10),

@@ -19,6 +19,7 @@ return [
         "link"                  =>  "Lien Web"              ,
         "job_division"          =>  "Division métier"       ,
         "more"                  =>  "Note"                  ,
+        "other_id"              =>  "Id sur Bati"           ,
         "deals" => [
             "id"                    =>  "Id"                    ,
             "title"                 =>  "Titre"                 ,
@@ -36,6 +37,7 @@ return [
             "link"                  =>  "Lien Web"              ,
             "job_division"          =>  "Division métier"       ,
             "more"                  =>  "Note"                  ,
+            "other_id"              =>  "Id sur Bati"           
         ],
         'agents'=>[
             'name'=>'Commercial'

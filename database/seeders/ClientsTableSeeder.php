@@ -17,7 +17,7 @@ class ClientsTableSeeder extends Seeder
     public function run()
     {
         Client::factory()
-            ->times(500)
+            ->times(100)
             ->create()
             ->each(
                 function ($client) {

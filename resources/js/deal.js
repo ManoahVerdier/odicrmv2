@@ -38,6 +38,7 @@ export class Deal {
             //Icone
             window.deal.stepIcon.html('<i class="fa fa-4x fa-question-circle"></i>');
             $('.icon-circle').removeClass(["border-secondary", "border-success", "border-danger"]);
+            $('#amount').next().removeClass(["text-secondary", "text-success", "text-danger"]) .addClass('text-info');
         });
 
         //Valeurs mises en avant
@@ -133,13 +134,17 @@ export class Deal {
         if(data.step.id==6){
             this.stepBarValue.css('background-color', '#dc3545');
             $('.icon-circle').addClass('border-danger');
+            $('#amount').next().removeClass('text-info').addClass('text-danger');
         }
         if(data.step.id==7){
+            this.stepBarValue.css('background-color', '#3CC275');
             $('.icon-circle').addClass('border-success');
+            $('#amount').next().removeClass('text-info').addClass('text-success');
         }
         if(data.step.id==8){
             this.stepBarValue.css('background-color', '#cecece');
             $('.icon-circle').addClass('border-secondary');
+            $('#amount').next().removeClass('text-info').addClass('text-secondary');
         }
 
         //Couleur du label fonction du remplissage de la barre

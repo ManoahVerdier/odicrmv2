@@ -45,7 +45,7 @@ class DealFactory extends Factory
             "more"              =>  $this->faker->text(80),
             "branch_id"         =>  Branch::all()->random()->id,
             "agent_id"          =>  Agent::all()->random()->id,
-            "step_id"           =>  $step,
+            "step_id"           =>  $step+1,
             "target"            =>  'client',
             "target_id"         =>  Client::all()->random()->id,
             "target_class"      =>  'App\Models\Client',

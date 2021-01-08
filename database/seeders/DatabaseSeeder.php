@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
         Deal::factory()
-            ->times(300)
+            ->times(100)
             ->create();
     }
 }

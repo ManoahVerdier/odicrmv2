@@ -17,6 +17,7 @@ class DealFactory extends Factory
      */
     protected $model = Deal::class;
     protected $types = ['AO', 'GO', 'GG', 'GA', 'CE'];
+    protected $steps = [5, 20, 40, 60, 80, 100, 100, 100];
 
     /**
      * Define the model's default state.
@@ -25,10 +26,11 @@ class DealFactory extends Factory
      */
     public function definition()
     {
+        $step = rand(0, 7);
         return [
             "title"             =>  $this->faker->text(20),
             "amount"            =>  rand(0, 10000000),
-            "probability"       =>  rand(0, 10)*10,
+            "probability"       =>  $this->step[$step],
             "project_lead"      =>  $this->faker->text(10),
             "prime_contractor"  =>  $this->faker->text(10),
             "bearer"            =>  $this->faker->text(10),
@@ -43,7 +45,7 @@ class DealFactory extends Factory
             "more"              =>  $this->faker->text(80),
             "branch_id"         =>  Branch::all()->random()->id,
             "agent_id"          =>  Agent::all()->random()->id,
-            "step_id"           =>  rand(1, 7),
+            "step_id"           =>  $step,
             "target"            =>  'client',
             "target_id"         =>  Client::all()->random()->id,
             "target_class"      =>  'App\Models\Client',

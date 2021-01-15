@@ -13,6 +13,20 @@ use App\Models\Segment;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post(
+    '/agents/list', 
+    [App\Http\Controllers\AgentController::class, 'list']
+)->name('agent-list');
+Route::post(
+    '/branches/list', 
+    [App\Http\Controllers\BranchController::class, 'list']
+)->name('branch-list');
+Route::post(
+    '/clients/exists', 
+    [App\Http\Controllers\ClientController::class, 'exists']
+)->name('clients.exists');
+
 Route::get(
     '/', 
     function () {
@@ -73,3 +87,4 @@ Route::resource('agents', App\Http\Controllers\AgentController::class);
 Route::resource('branches', App\Http\Controllers\BranchController::class);
 Route::resource('deals', App\Http\Controllers\DealController::class);
 Route::get('/deals/ajax/{deal}', [App\Http\Controllers\DealController::class, 'ajaxGet'])->name('deals.ajaxGet');
+

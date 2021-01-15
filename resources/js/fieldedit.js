@@ -4,11 +4,10 @@ export class FieldEdit {
     constructor(){
         
         this.target=$('#targetsFieldValues .nav-link.active').attr('aria-controls');
-        this.field=$('#'+this.target+' .nav-link.active').attr('field_name');
+        this.field=$('#'+this.target+' .nav-link.active').attr('name');
         this.field_id=$('#'+this.target+' .nav-link.active').attr('field_id');
         this.base_url=$('#'+this.target+' .nav-link.active').attr('url_base');
         this.container=$('#'+this.target+'-field-sortable');
-        this.target_class=$('#'+this.target+' .nav-link.active').attr('target_class');
         this.editing=-1;
         this.modalAdd = $('#add-field-value').modal('hide');
         this.modalEdit = $('#edit-field-value').modal('hide');
@@ -86,12 +85,12 @@ export class FieldEdit {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     data: {
-                        target_name: window.fieldEdit.target,
-                        field_name:window.fieldEdit.field,
+                        target: window.fieldEdit.target,
+                        field_id: window.fieldEdit.field_id,
+                        name:window.fieldEdit.name,
                         label:$('#label').val(),
                         value:$('#label').val(),
-                        order:window.fieldEdit.container.find('li').length,
-                        target_class:window.fieldEdit.target_class,
+                        order:window.fieldEdit.container.find('li').length
                     },
                     success: function (data) {
                         window.fieldEdit.modalAdd.modal('hide');
@@ -143,7 +142,8 @@ export class FieldEdit {
             $('#'+window.fieldEdit.target+' .nav-item.active').removeClass('active');
             $(this).addClass('active');
             $(this).find('a').addClass('active');
-            window.fieldEdit.field=$(this).find('a').attr('field_name');
+            window.fieldEdit.field=$(this).find('a').attr('name');
+            window.fieldEdit.field_id=$(this).find('a').attr('field_id');
             window.fieldEdit.loadList();
         })
         $('#targetsFieldValues li a').off('shown.bs.tab');

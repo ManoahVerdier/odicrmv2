@@ -28,7 +28,6 @@ class ClientCommercialFactory extends Factory
             "discount_condition"    =>  $this->faker->text(20),
             "client_relationship"   =>  $this->faker->text(20),
             "priority"              =>  $this->faker->text(20),
-            "odice_agent"           =>  $this->faker->text(20),
             "agent_id"              =>  Agent::all()->random()->id,
             "deals_nb"              =>  rand(0, 20),
             "deals_amount"          =>  rand(0, 2000000),

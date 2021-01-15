@@ -5,7 +5,7 @@ return [
     'attributes'=>[
         "id"                    =>  "Id"                    ,
         "type"                  =>  "Type"                  ,
-        "branch_code"           =>  "Code société"          ,
+        "branch_id"             =>  "Société"               ,
         "name"                  =>  "Nom"                   ,
         "address"               =>  "Adresse"               ,
         "city"                  =>  "Ville"                 ,
@@ -46,7 +46,6 @@ return [
         "discount_condition"    =>  "Conditions de remise"  ,
         "client_relationship"   =>  "Nature de la relation" ,
         "priority"              =>  "Priorité"              ,
-        "odice_agent"           =>  "Commercial Odice"      ,
         "agent_id"              =>  "Commercial"            ,
         "job"                   =>  "Métier contrat"        ,
         "contract_type"         =>  "Type de contrat"       ,
@@ -97,7 +96,6 @@ return [
             "discount_condition"    =>  "Conditions de remise"  ,
             "client_relationship"   =>  "Nature de la relation" ,
             "priority"              =>  "Priorité"              ,
-            "odice_agent"           =>  "Commercial Odice"      ,
             "agent_id"              =>  "Commercial"            ,
             "job"                   =>  "Métier contrat"        ,
             "contract_type"         =>  "Type de contrat"       ,
@@ -112,5 +110,9 @@ return [
             'name'=>'Société',
             'code'=>'Code Société',
         ]
-    ]
+        ],
+        "create"=>[
+            'title'=>'Ajouter un client',
+            'exists'=>'Ce client existe déjà'
+        ]
 ];

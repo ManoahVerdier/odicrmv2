@@ -139,4 +139,9 @@ class AgentController extends Controller
     {
         //
     }
+
+    public function list(Request $request)
+    {
+        return Agent::where("$request->valName", "$request->val")->get()->toJson();
+    }
 }

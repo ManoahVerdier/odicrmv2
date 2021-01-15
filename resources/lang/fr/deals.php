@@ -45,6 +45,9 @@ return [
         'branches'=>[
             'name'=>'Société',
             'code'=>'Code Société',
+        ],
+        'steps'=>[
+            'name'=>'Phase'
         ]
     ]
 ];

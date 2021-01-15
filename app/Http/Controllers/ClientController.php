@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\ClientContract;
 use App\Models\ClientCommercial;
-use App\Models\ClientField;
+use App\Models\Field;
 use App\Models\FieldValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Http\Requests\ClientStoreRequest;
 
 class ClientController extends Controller
 {
@@ -220,7 +221,7 @@ class ClientController extends Controller
     public function loadInput(Request $request)
     {
         $field = $request->post('column');
-        $client_structure = ClientField::where('field_name', $field)->first();
+        $client_structure = Field::where('target', 'clients')->where('name', $field)->first();
         if ($client_structure->is_select) {
             if ($client_structure->is_boolean) {
                 return [
@@ -232,9 +233,10 @@ class ClientController extends Controller
                     ]
                 ];
             } else {
-                $values = FieldValue::where('field_name', $field)
-                    ->where('target_name', 'clients')
-                    ->get()
+                $values = Field::where('name', $field)
+                    ->where('target', 'clients')
+                    ->first()
+                    ->values()
                     ->toArray();
                 return [
                     "name"=>$field,
@@ -259,7 +261,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        $fields = Field::where('target', 'clients')->where('is_required', true)->get();
+        return view('pages.clients.create', compact('fields'));
     }
 
     /**
@@ -269,7 +272,7 @@ class ClientController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientStoreRequest $request)
     {
         //
     }
@@ -321,5 +324,11 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         //
+    }
+
+    public function exists(Request $request)
+    {
+        $clients = Client::where('name', $request->value)->get();
+        return json_encode($clients->count()>0);
     }
 }

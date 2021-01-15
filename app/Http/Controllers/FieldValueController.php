@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FieldValue;
-use App\Models\ClientField;
+use App\Models\Field;
 use Illuminate\Http\Request;
 
 class FieldValueController extends Controller
@@ -15,24 +15,29 @@ class FieldValueController extends Controller
      */
     public function index()
     {   
-        $targets  = FieldValue
+        $targets  = Field
             ::select(
-                'field_name', 
-                'target_name', 
-                'target_class'
+                'name', 
+                'target',
+                'id'
             )
+            ->where('is_select', true)
+            ->where('is_boolean', false)
+            ->where('has_model', false)
             ->distinct()
             ->get()
-            ->groupBy('target_name');
+            ->groupBy('target');
 
         return view('pages.settings.fieldvalues', compact('targets'));
     }
 
     public function values(Request $request)
     {
-        $values = FieldValue
-            ::where('target_name', $request['target'])
-            ->where('field_name', $request['field'])
+        $values = Field
+            ::where('target', $request['target'])
+            ->where('name', $request['field'])
+            ->first()
+            ->values()
             ->orderBy('order', 'asc')
             ->orderBy('label', 'asc')
             ->orderBy('id', 'asc')

@@ -29,12 +29,14 @@ class Deal extends Model
 
         $branch = Branch::columnsVisible();
         
-        
+        $step = Step::columnsVisible();
+
         return array_diff(
             array_merge(
                 $deal, 
                 $agent,
-                $branch
+                $branch,
+                $step
             ), 
             $obj->exclude_extended
         );

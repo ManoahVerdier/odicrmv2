@@ -23,7 +23,6 @@ class CreateClientsCommercialsTable extends Migration
                 $table->text("discount_condition")->nullable();
                 $table->text("client_relationship")->nullable();
                 $table->text("priority")->nullable();
-                $table->text("odice_agent")->nullable();
                 $table->integer("agent_id")->nullable();
                 /*Opportunites*/
                 $table->integer('deals_nb')->nullable();

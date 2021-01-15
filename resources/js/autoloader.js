@@ -1,6 +1,7 @@
 import {Datalist} from './datalist';
 import {FieldEdit} from './fieldedit';
 import {Client} from './client';
+import {Create} from './create';
 
 export class Autoloader {
     constructor() {
@@ -19,6 +20,9 @@ export class Autoloader {
                 break;
             case 'show-client':
                     window.client = new Client();
+                break;
+            case 'create-client':
+                    window.create = new Create();
                 break;
             default:
                 // new Global

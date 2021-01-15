@@ -131,4 +131,9 @@ class BranchController extends Controller
     {
         //
     }
+
+    public function list(Request $request)
+    {
+        return Branch::all()->toJson();
+    }
 }

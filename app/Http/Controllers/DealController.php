@@ -40,6 +40,7 @@ class DealController extends Controller
         $query = Deal::query();
         $query->leftJoin('agents', 'deals.agent_id', '=', 'agents.id');
         $query->leftJoin('branches', 'deals.branch_id', '=', 'branches.id');
+        $query->leftJoin('steps', 'deals.step_id', '=', 'steps.id');
         foreach ($columns as $col) {
             if (Str::contains($col, 'deals')) {
                 $query->addSelect($col);

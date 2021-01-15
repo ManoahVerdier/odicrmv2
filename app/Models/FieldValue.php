@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use ClientFields;
+use Field;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,11 +21,6 @@ class FieldValue extends Model
      */
     public function field()
     {
-        return $this->morphTo(
-            "mainField", 
-            "target_class", 
-            "field_name", 
-            "field_name"
-        );
+        return $this->belongsTo(Field::class);
     }
 }

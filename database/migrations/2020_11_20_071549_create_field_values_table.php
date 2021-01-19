@@ -147,7 +147,7 @@ class CreateFieldValuesTable extends Migration
                 'label'=>'BOS'
             )
         );
-        $id = Field::where('name', 'client_relatioship')->first()->id;
+        $id = Field::where('name', 'client_relationship')->first()->id;
         DB::table('field_values')->insert(
             array(
                 'field_id' => $id,

@@ -274,7 +274,10 @@ class ClientController extends Controller
      */
     public function store(ClientStoreRequest $request)
     {
-        //
+        $client = Client::create($request->all());
+        $client->commercial()->create();
+        $client->contract()->create();
+        return redirect('clients/'.$client->id);
     }
 
     /**

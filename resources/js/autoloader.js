@@ -5,7 +5,7 @@ import {Create} from './create';
 
 export class Autoloader {
     constructor() {
-        this.lazyLoad()
+        this.lazyLoad();
     }
 
     lazyLoad() {

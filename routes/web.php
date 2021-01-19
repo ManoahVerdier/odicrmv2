@@ -30,8 +30,7 @@ Route::post(
 Route::get(
     '/', 
     function () {
-        echo "<a href='".route('deals.index')."'>Deals</a>";
-        echo "<a href='".route('clients.index')."'>Clients</a>";
+        return view('pages/home');
     }
 )->name('home');
 Route::post(
